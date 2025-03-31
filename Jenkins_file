@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/Jineeth1998/python_hello-world.git'
+            }
+        }
+        
+        stage('Setup Python') {
+            steps {
+                sh 'python3 --version'
+                sh 'pip3 install -r requirements.txt || true'  // Install dependencies if a requirements file exists
+            }
+        }
+        
+        stage('Run Script') {
+            steps {
+                sh 'python3 helloworld.py'  // Replace with the actual script name
+            }
+        }
+
+        stage('Archive Artifacts') {
+            steps {
+                archiveArtifacts artifacts: '**/*.py', fingerprint: true
+            }
+        }
+    }
+}
