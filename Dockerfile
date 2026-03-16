@@ -1,7 +1,9 @@
-FROM python:3.11-slim
+FROM python:3.10
 
 WORKDIR /app
 
 COPY . .
 
-CMD ["python", "helloworld.py"]
+RUN pip install flask
+
+CMD ["python","app.py"]
